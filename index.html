@@ -16,6 +16,9 @@
 		.form-control {
 			margin-bottom: 5px;
 		}
+		.selecionado {
+			background-color: yellow;
+		}
 	</style>
 	<script src="lib/angular/angular.js"></script>
 	<script>
@@ -34,6 +37,7 @@
 				{nome: "GVT", codigo: 41, categoria: "Fixo"},
 				{nome: "Embratel", codigo: 41, categoria: "Fixo"}
 			];
+			$scope.classe = "selecionado";
 			$scope.adicionarContato = function (contato) {
 				$scope.contatos.push(angular.copy(contato));
 				delete $scope.contato;
@@ -44,13 +48,13 @@
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="jumbotron">
 		<h3>{{app}}</h3>
-		<table class="table table-striped">
-			<tr>
+		<table class="table">
+			<tr >
 				<th>Nome</th>
 				<th>Telefone</th>
 				<th>Operadora</th>
 			</tr>
-			<tr ng-repeat="contato in contatos">
+			<tr ng-class="classe" ng-repeat="contato in contatos">
 				<td>{{contato.nome}}</td>
 				<td>{{contato.telefone}}</td>
 				<td>{{contato.operadora.nome}}</td>				
