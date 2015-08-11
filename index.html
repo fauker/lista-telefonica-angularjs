@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
 	<style>
 		.jumbotron {
-			width: 400px;
+			width: 600px;
 			text-align: center;
 			margin-top: 20px;
 			margin-left: auto;
@@ -31,9 +31,9 @@
 		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope) {
 			$scope.app = "Lista Telefonica";
 			$scope.contatos = [
-				{nome: "Pedro", telefone: "99998888", operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "red"},
-				{nome: "Ana", telefone: "99998877", operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}, cor: "yellow"},
-				{nome: "Maria", telefone: "99998866", operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}, cor: "green"}
+				{nome: "Pedro", telefone: "99998888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "red"},
+				{nome: "Ana", telefone: "99998877", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}, cor: "yellow"},
+				{nome: "Maria", telefone: "99998866", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}, cor: "green"}
 			];
 			$scope.operadoras = [
 				{nome: "Oi", codigo: 14, categoria: "Celular"},
@@ -71,6 +71,7 @@
 				<th>Nome</th>
 				<th>Telefone</th>
 				<th>Operadora</th>
+				<th>Data</th>
 				<th></th>
 			</tr>
 			<tr ng-class="{'selecionado negrito' : contato.selecionado}" ng-repeat="contato in contatos">
@@ -80,6 +81,7 @@
 				<td>{{contato.nome | uppercase}}</td>
 				<td>{{contato.telefone}}</td>
 				<td>{{contato.operadora.nome | lowercase}}</td>				
+				<td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>				
 				<td><div style="width: 20px; height: 20px;" ng-style="{'background-color' : contato.cor}"></div></td>
 			</tr>
 		</table>
