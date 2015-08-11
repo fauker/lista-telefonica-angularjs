@@ -31,9 +31,9 @@
 		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope) {
 			$scope.app = "Lista Telefonica";
 			$scope.contatos = [
-				{nome: "Pedro", telefone: "99998888", cor: "red"},
-				{nome: "Ana", telefone: "99998877", cor: "yellow"},
-				{nome: "Maria", telefone: "99998866", cor: "green"}
+				{nome: "Pedro", telefone: "99998888", operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "red"},
+				{nome: "Ana", telefone: "99998877", operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}, cor: "yellow"},
+				{nome: "Maria", telefone: "99998866", operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}, cor: "green"}
 			];
 			$scope.operadoras = [
 				{nome: "Oi", codigo: 14, categoria: "Celular"},
@@ -79,7 +79,7 @@
 				</td>
 				<td>{{contato.nome | uppercase}}</td>
 				<td>{{contato.telefone}}</td>
-				<td>{{contato.operadora.nome}}</td>				
+				<td>{{contato.operadora.nome | lowercase}}</td>				
 				<td><div style="width: 20px; height: 20px;" ng-style="{'background-color' : contato.cor}"></div></td>
 			</tr>
 		</table>
