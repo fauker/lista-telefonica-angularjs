@@ -1,5 +1,6 @@
 <html ng-app="listaTelefonica">
 <head>
+	<meta charset="UTF-8"/>
 	<title>Lista Telefonica</title>
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
 	<style>
@@ -70,6 +71,8 @@
 				<th>Operadora</th>
 				<th></th>
 			</tr>
+			É válido: $valid
+			É inválido: $invalid
 			<tr ng-class="{'selecionado negrito' : contato.selecionado}" ng-repeat="contato in contatos">
 				<td>
 					<input type="checkbox" ng-model="contato.selecionado">
@@ -81,13 +84,18 @@
 			</tr>
 		</table>
 		<hr/>
-		<input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
-		<input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
-		<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
-			<option value="">Selecione uma operadora</option>
-		</select>		
-		<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone || !contato.operadora">Adicionar Contato
-		<button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-if="isContatoSelecionado(contatos)">Apagar Contatos</button>
+		<form name="contatoForm">
+			<input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome" ng-required="true"/>
+			<input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone" ng-required="true"/>
+			<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+				<option value="">Selecione uma operadora</option>
+			</select>		
+			<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar Contato
+			<button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-if="isContatoSelecionado(contatos)">Apagar Contatos</button>
+		</form>
+		<div class="alert alert-danger">
+			
+		</div>
 	</div>
 	<div ng-include="'footer.html'"></div>
 </body>
