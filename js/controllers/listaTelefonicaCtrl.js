@@ -1,4 +1,4 @@
-angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http) {
+angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http, contatosAPI) {
 	$scope.app = "Lista Telefonica";
 	$scope.contatos = [];
 
@@ -11,7 +11,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
 	];
 
 	var carregarContatos = function () {
-		$http.get("http://localhost:3412/contatos").success(function (data) {
+		contatosAPI.getContatos().success(function (data) {
 			$scope.contatos = data;
 		}).error(function (data) {
 			$scope.message = "Aconteceu um problema" +  data;
