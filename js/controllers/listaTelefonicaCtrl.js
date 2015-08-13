@@ -2,13 +2,7 @@ angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($s
 	$scope.app = "Lista Telefonica";
 	$scope.contatos = [];
 
-	$scope.operadoras = [
-		{nome: "Oi", codigo: 14, categoria: "Celular", preco: 2},
-		{nome: "Vivo", codigo: 15, categoria: "Celular", preco: 3},
-		{nome: "Tim", codigo: 41, categoria: "Celular", preco: 4},
-		{nome: "GVT", codigo: 41, categoria: "Fixo", preco: 5},
-		{nome: "Embratel", codigo: 41, categoria: "Fixo", preco: 26}
-	];
+	$scope.operadoras = [];
 
 	var carregarContatos = function () {
 		contatosAPI.getContatos().success(function (data) {
