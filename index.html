@@ -29,13 +29,10 @@
 	<script src="lib/angular/messages.js"></script>
 	<script>
 		angular.module("listaTelefonica", ["ngMessages"]);
-		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope) {
+		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, $http) {
 			$scope.app = "Lista Telefonica";
-			$scope.contatos = [
-				{nome: "Pedro", telefone: "99998888", data: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}, cor: "red"},
-				{nome: "Ana", telefone: "99998877", data: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}, cor: "yellow"},
-				{nome: "Maria", telefone: "99998866", data: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}, cor: "green"}
-			];
+			$scope.contatos = [];
+
 			$scope.operadoras = [
 				{nome: "Oi", codigo: 14, categoria: "Celular", preco: 2},
 				{nome: "Vivo", codigo: 15, categoria: "Celular", preco: 3},
@@ -43,12 +40,30 @@
 				{nome: "GVT", codigo: 41, categoria: "Fixo", preco: 5},
 				{nome: "Embratel", codigo: 41, categoria: "Fixo", preco: 26}
 			];
+
+			var carregarContatos = function () {
+				$http.get("http://localhost:3412/contatos").success(function (data) {
+					$scope.contatos = data;
+				}).error(function (data) {
+					$scope.message = "Aconteceu um problema" +  data;
+				});
+			}
+
+			var carregarOperadoras = function () {
+				$http.get("http://localhost:3412/operadoras").success(function (data) {
+					$scope.operadoras = data;
+				})
+			}
+
 			$scope.classe1 = "selecionado";
 			$scope.classe2 = "negrito";
 			$scope.adicionarContato = function (contato) {
-				$scope.contatos.push(angular.copy(contato));
-				delete $scope.contato;
-				$scope.contatoForm.$setPristine();
+				$http.post("http://localhost:3412/contatos", contato).success(function (data){
+					delete $scope.contato;
+					$scope.contatoForm.$setPristine();					
+					carregarContatos();
+				});
+
 			};
 			$scope.apagarContatos = function (contatos) {
 				$scope.contatos = contatos.filter(function (contatos) {
@@ -63,6 +78,9 @@
 			$scope.ordernarPor =  function (campo) {
 				$scope.criterioDeOrdenacao = campo;
 			}
+
+			carregarContatos();
+			carregarOperadoras();
 		});
 	</script>
 </head>
@@ -70,6 +88,7 @@
 	<div class="jumbotron">
 		<h3>{{app}}</h3>
 		<input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está procurando?"/>
+		{{message}}
 		<table class="table" ng-show="contatos.length > 0">
 			<tr >
 				<th></th>
