@@ -12,7 +12,8 @@
 	<script src="js/services/operadorasAPIService.js"></script>
 	<script src="js/controllers/listaTelefonicaCtrl.js"></script>
 	<script src="js/value/configValue.js"></script>
-
+	<script src="js/filter/nameFilter.js"></script>
+	<script src="js/filter/ellipisisFilter.js"></script>
 </head>
 <body ng-controller="listaTelefonicaCtrl">
 	<div class="jumbotron">
@@ -32,7 +33,7 @@
 				<td>
 					<input type="checkbox" ng-model="contato.selecionado">
 				</td>
-				<td>{{contato.nome | uppercase}}</td>
+				<td>{{contato.nome | name | ellipisis: 5}}</td>
 				<td>{{contato.telefone}}</td>
 				<td>{{contato.operadora.nome | lowercase}}</td>				
 				<td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>				
