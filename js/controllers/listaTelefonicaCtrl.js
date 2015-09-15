@@ -1,5 +1,9 @@
 angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, contatosAPI, operadorasAPI) {
 	$scope.app = "Lista Telefonica";
+	$scope.contato = {
+		data: 1286679600000
+	};
+
 	$scope.contatos = [];
 
 	$scope.operadoras = [];
